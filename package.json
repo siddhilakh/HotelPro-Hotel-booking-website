@@ -2,16 +2,30 @@
   "name": "hotelpro",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "HotelPro - modern hotel management platform (React + Express + MongoDB + JWT)",
   "scripts": {
     "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "postinstall": "npm install --prefix server",
     "server": "npm run dev --prefix server",
     "client": "npm run dev --prefix client",
     "dev": "concurrently -n api,web -c yellow,cyan \"npm:server\" \"npm:client\"",
-    "build": "npm install --prefix client --include=dev && npm run build --prefix client && node -e \"require('fs').cpSync('client/dist', 'dist', { recursive: true })\"",
+    "build": "npm install --prefix client --include=dev && npm run build --prefix client && node -e \"import('fs').then(fs => fs.cpSync('client/dist', 'dist', { recursive: true }))\"",
     "start": "npm start --prefix server"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb-memory-server": "^10.1.2",
+    "mongoose": "^8.8.1"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
   }
 }
+

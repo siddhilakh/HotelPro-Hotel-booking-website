@@ -62,6 +62,16 @@ The site has two parts that deploy separately.
 - Environment variable: `VITE_API_URL` = the public URL of your deployed API
 - Single-page-app routing: Cloudflare Pages handles this automatically when there is no `404.html`; on Netlify add `/* /index.html 200` to `client/public/_redirects`.
 
-**Backend (Render / Railway / Fly.io, etc.)**
-- Root directory: `server`, build `npm install`, start `npm start`
-- Environment variables: `MONGO_URI` (e.g. MongoDB Atlas, required in production), `JWT_SECRET` (long random string), `CLIENT_URL` (your frontend URL, for CORS), `PORT` if the host requires it
+**Backend Option 1: Vercel (Serverless)**
+- Import the repository into Vercel
+- Root directory: leave as default `.` (or set to `server`)
+- Environment variables (in Vercel Project Settings):
+  - `MONGO_URI`: Your MongoDB Atlas connection string (e.g. `mongodb+srv://<user>:<password>@cluster0.mongodb.net/hotelpro?retryWrites=true&w=majority`)
+  - `JWT_SECRET`: A long random secret string
+  - `CLIENT_URL`: Your frontend URL (e.g. `https://your-frontend.pages.dev`)
+- Important: In MongoDB Atlas > **Network Access**, ensure IP `0.0.0.0/0` is whitelisted so Vercel serverless functions can connect.
+
+**Backend Option 2: Render / Railway / Fly.io (Traditional Node Service)**
+- Root directory: `server`, build command `npm install`, start command `npm start`
+- Environment variables: `MONGO_URI` (MongoDB Atlas), `JWT_SECRET`, `CLIENT_URL`
+
