@@ -8,7 +8,7 @@
     "server": "npm run dev --prefix server",
     "client": "npm run dev --prefix client",
     "dev": "concurrently -n api,web -c yellow,cyan \"npm:server\" \"npm:client\"",
-    "build": "npm run build --prefix client",
+    "build": "npm install --prefix client --include=dev && npm run build --prefix client && node -e \"require('fs').cpSync('client/dist', 'dist', { recursive: true })\"",
     "start": "npm start --prefix server"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: '/api' });
+// In production the API usually lives on another host: set VITE_API_URL (e.g. https://api.example.com) at build time.
+const api = axios.create({ baseURL: `${(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')}/api` });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('hp_token');

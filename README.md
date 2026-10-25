@@ -51,3 +51,17 @@ The database is seeded on first run with 6 rooms and two demo accounts:
 | GET | `/api/admin/stats` | admin |
 
 Payments are simulated; no real payment provider is integrated.
+
+## Deployment
+
+The site has two parts that deploy separately.
+
+**Frontend (Cloudflare Pages / Netlify / Vercel)**
+- Build command: `npm run build` (run from the repo root; it installs the client dependencies itself)
+- Output directory: `client/dist`
+- Environment variable: `VITE_API_URL` = the public URL of your deployed API
+- Single-page-app routing: Cloudflare Pages handles this automatically when there is no `404.html`; on Netlify add `/* /index.html 200` to `client/public/_redirects`.
+
+**Backend (Render / Railway / Fly.io, etc.)**
+- Root directory: `server`, build `npm install`, start `npm start`
+- Environment variables: `MONGO_URI` (e.g. MongoDB Atlas, required in production), `JWT_SECRET` (long random string), `CLIENT_URL` (your frontend URL, for CORS), `PORT` if the host requires it
